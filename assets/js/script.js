@@ -68,26 +68,28 @@
          var currentTime =moment(currentTimeUnformated).format("hh:mm");
          console.log("CURRENT TIME: " + currentTime);
 
+        
         $("#addNewTrain").on("click",function(){
             event.preventDefault();
             //debugger;
+
+            
             tFrequency = ($("#frequency").val())*1;
             firstTime = $("#militaryTime").val();
-            getTrainInfo();
+            
             trainName = $("#trainName").val();
             destination = $("#destination").val();
-
             fireBase();
-            
-            $("#trainSchdeule").append(`<tr>
-            <th scope="row">${i}</th>
-            <td>${trainName}</td>
-            <td>${destination}</td>
-            <td>${tFrequency}</td>
-            <td>${nextTrain}</td>
-            <td>${tMinutesTillTrain}</td>
-          </tr>`);
-          i++;
+            getTrainInfo();
+        //     $("#trainSchdeule").append(`<tr>
+        //     <th scope="row">${i}</th>
+        //     <td>${trainName}</td>
+        //     <td>${destination}</td>
+        //     <td>${tFrequency}</td>
+        //     <td>${nextTrain}</td>
+        //     <td>${tMinutesTillTrain}</td>
+        //   </tr>`);
+        //   i++;
 
         });
         function fireBase(){
@@ -124,3 +126,21 @@
           console.log("ARRIVAL TIME: " + nextTrain);//next time
 
         }
+        database.ref().on("child_added", function(childSnapshot) {
+            console.log(childSnapshot.val().trainName);
+            var name = childSnapshot.val().trainName;
+            console.log(name);
+            var destination = childSnapshot.val().destination;
+            console.log(destination);
+            var frequency = childSnapshot.val().frequency;
+            getTrainInfo();
+            $("#trainSchdeule").append(`<tr>
+            <th scope="row">${i}</th>
+            <td>${name}</td>
+            <td>${destination}</td>
+            <td>${frequency}</td>
+            <td>${nextTrain}</td>
+            <td>${tMinutesTillTrain}</td>
+        </tr>`);
+        i++
+        });
