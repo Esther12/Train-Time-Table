@@ -67,7 +67,8 @@
          var currentTimeUnformated = moment();//get current time
          var currentTime =moment(currentTimeUnformated).format("hh:mm");
          console.log("CURRENT TIME: " + currentTime);
-
+          
+         $("#currenTime").html(currentTime);
         
         $("#addNewTrain").on("click",function(){
             event.preventDefault();
@@ -122,7 +123,7 @@
       
           // Next Train
           var nextTrainUnformated = moment().add(tMinutesTillTrain, "minutes");
-         nextTrain = moment(nextTrainUnformated).format("hh:mm");
+         nextTrain = moment(nextTrainUnformated).format("hh:mm:ss a");
           console.log("ARRIVAL TIME: " + nextTrain);//next time
 
         }
@@ -138,8 +139,8 @@
             <th scope="row">${i}</th>
             <td>${name}</td>
             <td>${destination}</td>
-            <td>${frequency}</td>
             <td>${nextTrain}</td>
+            <td>${frequency}</td>
             <td>${tMinutesTillTrain}</td>
         </tr>`);
         i++
